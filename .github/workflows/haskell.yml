@@ -71,8 +71,9 @@ jobs:
       - name: Start Redis
         uses: supercharge/redis-github-action@1.1.0
       - run: cabal v2-update
-      - run: cabal v2-freeze $CONFIG
-      - run: cat cabal.project.freeze
+      # Disable freezing so that Cabal doesn't think the configuration has changed
+      #- run: cabal v2-freeze $CONFIG
+      #- run: cat cabal.project.freeze
       - uses: actions/cache@v2
         with:
           path: |

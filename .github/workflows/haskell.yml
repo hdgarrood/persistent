@@ -71,9 +71,8 @@ jobs:
       - name: Start Redis
         uses: supercharge/redis-github-action@1.1.0
       - run: cabal v2-update
-      # Disable freezing so that Cabal doesn't think the configuration has changed
-      #- run: cabal v2-freeze $CONFIG
-      #- run: cat cabal.project.freeze
+      - run: cabal v2-freeze $CONFIG
+      - run: cat cabal.project.freeze
       - uses: actions/cache@v2
         with:
           path: |
@@ -83,7 +82,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('cabal.project.freeze') }}
             ${{ runner.os }}-${{ matrix.ghc }}-
-      #- run: cabal v2-build all --disable-optimization --only-dependencies $CONFIG
+      - run: cabal v2-build all --disable-optimization --only-dependencies $CONFIG
       - run: cabal v2-build all --disable-optimization $CONFIG
       - run: cabal v2-test all --disable-optimization $CONFIG --test-options "--fail-on-focus"
       - run: cabal v2-bench all --disable-optimization $CONFIG

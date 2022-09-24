@@ -65,6 +65,8 @@ module Database.Persist.Postgresql
     , createRawPostgresqlPoolModified
     , createRawPostgresqlPoolModifiedWithVersion
     , createRawPostgresqlPoolWithConf
+
+    , secret
     ) where
 
 import qualified Database.PostgreSQL.LibPQ as LibPQ
@@ -128,6 +130,8 @@ import Database.Persist.SqlBackend
 import Database.Persist.SqlBackend.StatementCache (StatementCache, mkSimpleStatementCache, mkStatementCache)
 import qualified Data.Vault.Strict as Vault
 import System.IO.Unsafe (unsafePerformIO)
+
+
 
 -- | A @libpq@ connection string.  A simple example of connection
 -- string would be @\"host=localhost port=5432 user=test
@@ -2026,3 +2030,4 @@ instance (PersistUniqueWrite b) => PersistUniqueWrite (RawPostgresql b) where
     putMany = withReaderT persistentBackend . putMany
 #endif
 
+secret = 100

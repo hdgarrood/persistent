@@ -77,19 +77,18 @@ jobs:
         with:
           path: |
             ${{ steps.setup-haskell-cabal.outputs.cabal-store }}
-          key: ${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('cabal.project.freeze') }}
+          key: deps-${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('cabal.project.freeze') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.ghc }}-${{ hashFiles('cabal.project.freeze') }}
-            ${{ runner.os }}-${{ matrix.ghc }}-
+            deps-${{ runner.os }}-${{ matrix.ghc }}-
       - uses: actions/cache@v2
         with:
           path: |
             dist-newstyle
-          key: ${{ runner.os }}-${{ matrix.ghc }}-${{ github.sha }}
+          key: dist-${{ runner.os }}-${{ matrix.ghc }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.ghc }}-${{ github.event.before }}
-            ${{ runner.os }}-${{ matrix.ghc }}-${{ github.event.pull_request.base.sha }}
-            ${{ runner.os }}-${{ matrix.ghc }}-
+            dist-${{ runner.os }}-${{ matrix.ghc }}-${{ github.event.before }}
+            dist-${{ runner.os }}-${{ matrix.ghc }}-${{ github.event.pull_request.base.sha }}
+            dist-${{ runner.os }}-${{ matrix.ghc }}-
       - run: cabal v2-build all --disable-optimization --only-dependencies $CONFIG
       - run: cabal v2-build all --disable-optimization $CONFIG
       - run: cabal v2-test all --disable-optimization $CONFIG --test-options "--fail-on-focus"

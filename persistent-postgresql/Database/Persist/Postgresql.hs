@@ -65,8 +65,6 @@ module Database.Persist.Postgresql
     , createRawPostgresqlPoolModified
     , createRawPostgresqlPoolModifiedWithVersion
     , createRawPostgresqlPoolWithConf
-
-    , secret
     ) where
 
 import qualified Database.PostgreSQL.LibPQ as LibPQ
@@ -2029,5 +2027,3 @@ instance (PersistUniqueWrite b) => PersistUniqueWrite (RawPostgresql b) where
     upsertBy uniq rec = withReaderT persistentBackend . upsertBy uniq rec
     putMany = withReaderT persistentBackend . putMany
 #endif
-
-secret = 100

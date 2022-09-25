@@ -84,10 +84,8 @@ jobs:
         with:
           path: |
             dist-newstyle
-          key: dist-${{ runner.os }}-${{ matrix.ghc }}-${{ github.event.pull_request.head.sha || github.sha }}
+          key: dist-${{ runner.os }}-${{ matrix.ghc }}-${{ github.sha }}
           restore-keys: |
-            dist-${{ runner.os }}-${{ matrix.ghc }}-${{ github.event.before }}
-            dist-${{ runner.os }}-${{ matrix.ghc }}-${{ github.event.pull_request.base.sha }}
             dist-${{ runner.os }}-${{ matrix.ghc }}-
       - run: cabal v2-build all --disable-optimization --only-dependencies $CONFIG
       - run: cabal v2-build all --disable-optimization $CONFIG
